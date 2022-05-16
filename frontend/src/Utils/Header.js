@@ -28,19 +28,20 @@ margin-left:4rem;
 `
 
 const Right = styled.div`
-display:flex;
+display:block;
 width:15rem;
 justify-content: space-between;
 align-items: center;
-margin-right:1rem;
-// background-color:green;
+//margin-right:1rem;
+//background-color:green;
 float:right;
 `
 const Button = styled.button`
 background-color:white;
-padding:0.5rem;
+padding:0.7rem;
 font-weight:bold;
 float:right;
+margin-right:1rem;
 `
 
 const Header = () =>{
@@ -49,7 +50,7 @@ const Header = () =>{
             <Inner_Container>
                 <Left>socialHub</Left>
                 <Right>
-                    <Button>Home</Button>
+                    <Button>About</Button>
                 </Right>
             </Inner_Container>
         </Outer_Container>

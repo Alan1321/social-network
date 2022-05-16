@@ -6,7 +6,7 @@ require('dotenv').config()
 
 app.use(express.json())
 
-const port = 3000;
+const port = 3001;
 
 const start = async ()=>{
     try{
