@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 const Outer_Container = styled.div`
 background-color:grey;
-height:5rem;
+height:10%;
 width:100%;
 display: flex;
 //text-align: center;
@@ -33,10 +33,14 @@ width:15rem;
 justify-content: space-between;
 align-items: center;
 margin-right:1rem;
+// background-color:green;
+float:right;
 `
 const Button = styled.button`
+background-color:white;
 padding:0.5rem;
-
+font-weight:bold;
+float:right;
 `
 
 const Header = () =>{
@@ -46,8 +50,6 @@ const Header = () =>{
                 <Left>socialHub</Left>
                 <Right>
                     <Button>Home</Button>
-                    <Button>Login</Button>
-                    <Button>Sign Up</Button>
                 </Right>
             </Inner_Container>
         </Outer_Container>
