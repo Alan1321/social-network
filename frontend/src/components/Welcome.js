@@ -86,17 +86,17 @@ const Welcome = () =>{
                             <Input type="text" id="fname" name="fname" placeholder="First name"/><br></br>
                             <Input type="text" id="lname" name="lname" placeholder="Last name"/><br></br>
                             <Input placeholder="Email"/><br></br>
-                            <Input placeholder="password"/><br></br>
-                            <Input placeholder="Confirm password"/><br></br>
-                            <Input style={{backgroundColor:'green'}} type="submit"/>
-                            <Button onClick={()=>setLogin(true)}>Login</Button>
+                            <Input type="password" placeholder="password"/><br></br>
+                            <Input type="password" placeholder="Confirm password"/><br></br>
+                            <Input style={{backgroundColor:'green'}} type="submit"/><br></br>
+                            <Button onClick={()=>setLogin(true)}>Back to Login</Button>
                         </form>
                     </Signup_form>}
                     {login && <Login_form>
                         <form>
                             <Input type="text" id="fname" name="fname" placeholder="Email"/><br></br>
                             <Input type="text" id="lname" name="lname" placeholder="Password"/><br></br>
-                            <Input style={{backgroundColor:'green'}} type="submit"/>
+                            <Input style={{backgroundColor:'green'}} type="submit"/><br></br>
                             <Button onClick={()=>setLogin(false)}>Create new account</Button>
                         </form>
                     </Login_form>}
