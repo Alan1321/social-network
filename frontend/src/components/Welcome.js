@@ -90,25 +90,34 @@ const Welcome = () =>{
             email:signUpEmail,
             password:singUpPassword,
         }
-        
-        fetchHandler(data)
+
+        fetchHandler('http://localhost:3005/profile/create', 'POST', data)
     }
 
     const LoginHandler = (event) =>{
         event.preventDefault();
         setLoginEmail('');
         setLoginPassword('');
+
+        fetchHandler('http://localhost:3005/profile/read', 'GET', 'null')
     }
 
-    async function fetchHandler(body){
+    async function fetchHandler(url, method ,body){
 
-        const response = await fetch('http://localhost:3005/addprofile',{
-            method:'POST',
-            body:JSON.stringify(body),
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        })
+        let jsonBody = {
+            method:'GET'
+        }
+
+        if(method == 'POST'){
+            jsonBody={
+                method:'POST',
+                body:JSON.stringify(body),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            }
+        }
+        const response = await fetch(url,jsonBody)
         let datas = await response.json()
         console.log(datas)
     }

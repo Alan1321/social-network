@@ -4,11 +4,16 @@ const router = express.Router();
 
 const Task = require('../model/Task')
 
-router.route('/getprofile').get((req,res)=>{
-    res.send('hello world im in task router')
+router.route('/read').get(async (req,res)=>{
+    try{
+        const tasks = await Task.find({})
+        res.status(200).json({tasks})
+    }catch(error){
+        res.status(500).json({msg:error})
+    }
 })
 
-router.route('/addprofile').post(async (req,res)=>{
+router.route('/create').post(async (req,res)=>{
     console.log(req.body)
     try{
         const task = await Task.create(req.body)

@@ -23,4 +23,4 @@ const start = async ()=>{
 
 start()
 
-app.use('/', tasks)
+app.use('/profile/', tasks)
