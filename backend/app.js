@@ -2,11 +2,15 @@ const express = require('express');
 const app = express();
 const tasks = require('./routes/tasks')
 const connectDB = require("./db/connect")
+const cors = require('cors')
 require('dotenv').config()
 
+app.use(cors({
+    origin:'*'
+}))
 app.use(express.json())
 
-const port = 3001;
+const port = 3005;
 
 const start = async ()=>{
     try{

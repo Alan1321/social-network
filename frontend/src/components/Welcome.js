@@ -75,22 +75,42 @@ const Welcome = () =>{
     const [loginEmail, setLoginEmail] = useState("")
     const [loginPassword, setLoginPassword] = useState("")
 
-    const [firstName, setFirstName] = useState(null);
-    const [lastName, setLastName] = useState(null);
-    const [singUpEmail, setSignUpEmail] = useState(null);
-    const [singUpPassword, setSignUpPassword] = useState(null);
-    const [singUpConfirmPassword, setsingUpConfirmPassword] = useState(null);
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [signUpEmail, setSignUpEmail] = useState("");
+    const [singUpPassword, setSignUpPassword] = useState("");
+    const [singUpConfirmPassword, setsingUpConfirmPassword] = useState("");
 
     const SignUpHandler = (event) =>{
-        console.log(event)
         event.preventDefault();
+
+        let data = {
+            firstName:firstName,
+            lastName:lastName,
+            email:signUpEmail,
+            password:singUpPassword,
+        }
+        
+        fetchHandler(data)
     }
 
     const LoginHandler = (event) =>{
         event.preventDefault();
-        console.log(event.target.value)
         setLoginEmail('');
         setLoginPassword('');
+    }
+
+    async function fetchHandler(body){
+
+        const response = await fetch('http://localhost:3005/addprofile',{
+            method:'POST',
+            body:JSON.stringify(body),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+        let datas = await response.json()
+        console.log(datas)
     }
 
     return(
@@ -106,10 +126,10 @@ const Welcome = () =>{
                 <Signup_right>
                     {!login && <Signup_form onSubmit={SignUpHandler}>
                         <div>
-                            <Input type="text" id="fname" name="fname" placeholder="First name"/><br></br>
-                            <Input type="text" id="lname" name="lname" placeholder="Last name"/><br></br>
-                            <Input placeholder="Email"/><br></br>
-                            <Input type="password" placeholder="password"/><br></br>
+                            <Input type="text" id="fname" name="fname" placeholder="First name" onChange={(e)=>setFirstName(e.target.value)} value={firstName}/><br></br>
+                            <Input type="text" id="lname" name="lname" placeholder="Last name" onChange={(e)=>setLastName(e.target.value)} value={lastName}/><br></br>
+                            <Input placeholder="Email" onChange={(e)=>setSignUpEmail(e.target.value)} value={signUpEmail}/><br></br>
+                            <Input type="password" placeholder="password" onChange={(e)=>setSignUpPassword(e.target.value)} value={singUpPassword}/><br></br>
                             <Input type="password" placeholder="Confirm password"/><br></br>
                             <Button style={{backgroundColor:'green'}} type="submit">Submit</Button><br></br>
                             <Button onClick={()=>setLogin(true)}>Back to Login</Button>
