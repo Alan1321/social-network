@@ -2,9 +2,8 @@ const express = require('express')
 const router = express.Router();
 const conTask = require('../controllers/tasks')
 
-// const Task = require('../models/Task')
 
-const Task = require('../model/Task')
+// const Task = require('../model/Task')
 
 // router.route('/read').get(async (req,res)=>{
 //     try{
@@ -25,15 +24,22 @@ const Task = require('../model/Task')
 //     }
 // })
 
-
 router.route('/read').get(async (req, res)=>{
-    const data = await conTask.getProfile();
-    res.status(200).json(data)
+    try{        
+        const data = await conTask.getProfile();
+        res.status(200).json(data)
+    }catch(error){
+        res.status(500).json(error)
+    }
 })
 
 router.route('/create').post(async(req, res)=>{
-    const data = await conTask.setProfile(req.body)
-    res.status(200).json(data)
+    try{        
+        const data = await conTask.setProfile(req.body)
+        res.status(200).json(data)
+    }catch(error){
+        res.status(500).json(error)
+    }
 })
 
 

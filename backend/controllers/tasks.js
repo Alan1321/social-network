@@ -18,9 +18,19 @@ async function setProfile(profile) {
     }
 }
 
+async function deleteProfile(id){
+
+}
+
+async function updateProfile(id){
+
+}
+
 module.exports = {
     getProfile,
     setProfile,
+    deleteProfile,
+    updateProfile,
 }
 
 
