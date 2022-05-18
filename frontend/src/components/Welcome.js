@@ -79,9 +79,9 @@ const Welcome = (props) =>{
     const [lastName, setLastName] = useState("");
     const [signUpEmail, setSignUpEmail] = useState("");
     const [singUpPassword, setSignUpPassword] = useState("");
-    const [singUpConfirmPassword, setsingUpConfirmPassword] = useState("");
+    const [singUpConfirmPassword, setSignUpConfirmPassword] = useState("");
 
-    const SignUpHandler = (event) =>{
+    async function SignUpHandler (event){
         event.preventDefault();
 
         let data = {
@@ -91,7 +91,18 @@ const Welcome = (props) =>{
             password:singUpPassword,
         }
 
-        fetchHandler('http://localhost:3005/profile/create', 'POST', data)
+        const res = await fetchHandler('http://localhost:3005/profile/create', 'POST', data)
+
+        setFirstName("");
+        setLastName("");
+        setSignUpEmail("");
+        setSignUpPassword("");
+        setSignUpConfirmPassword("");
+
+        console.log(res)
+
+        if(res._id) alert("You have Successfully created an Account")
+        else alert("Error. Please provide all fields.")
     }
 
     async function LoginHandler(event){
@@ -143,7 +154,7 @@ const Welcome = (props) =>{
                             <Input type="text" id="lname" name="lname" placeholder="Last name" onChange={(e)=>setLastName(e.target.value)} value={lastName}/><br></br>
                             <Input placeholder="Email" onChange={(e)=>setSignUpEmail(e.target.value)} value={signUpEmail}/><br></br>
                             <Input type="password" placeholder="password" onChange={(e)=>setSignUpPassword(e.target.value)} value={singUpPassword}/><br></br>
-                            <Input type="password" placeholder="Confirm password"/><br></br>
+                            <Input type="password" placeholder="Confirm password" onChange={(e)=>setSignUpConfirmPassword(e.target.value)} value={singUpConfirmPassword}/><br></br>
                             <Button style={{backgroundColor:'green'}} type="submit">Submit</Button><br></br>
                             <Button onClick={()=>setLogin(true)}>Back to Login</Button>
                         </div>
