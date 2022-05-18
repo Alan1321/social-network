@@ -2,7 +2,8 @@ import React from "react";
 import styled from 'styled-components'
 
 const Outer_Container = styled.div`
-background-color:grey;
+//background-color:grey;
+background-color:#303030;
 height:10%;
 width:100%;
 display: flex;

@@ -1,16 +1,28 @@
 import './App.css';
-import {Route} from 'react-router-dom';
+import React,{useState} from 'react';
+import {Route, Redirect} from 'react-router-dom';
 import Welcome from './components/Welcome';
 import Profile from './components/Profile';
 
 function App() {
+
+  //will be managed by redux later on
+  const [isLoggedin, setLogin] = useState(false);
+  const loginHandler = () =>{
+    setLogin(true);
+  }
+
   return (
     <div className="App">
         <Route path='/' exact>
-          <Welcome />
+          {!isLoggedin && <Welcome login={loginHandler}/>}
+          {isLoggedin && <Redirect to='/profile' />}
         </Route>
-        <Route path='/profile' exact>
+        {isLoggedin && <Route path='/profile' exact>
           <Profile />
+        </Route>}
+        <Route path='*'>  
+          <Redirect to='/'/>
         </Route>
     </div>
   );

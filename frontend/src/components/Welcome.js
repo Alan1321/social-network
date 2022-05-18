@@ -6,12 +6,13 @@ const Outer_Container = styled.div`
 height:100vh;
 `
 const Signup_body = styled.div`
+//background-color:#939496;
 background-color:white;
 height:90%;
 display:flex;
 `
 const Signup_left = styled.div`
-background-color:white;
+// background-color:white;
 width:50%;
 display:flex;
 text-align: center;
@@ -68,10 +69,9 @@ background-color:green;
 margin-bottom:1rem;
 `
 
-const Welcome = () =>{
+const Welcome = (props) =>{
 
     const [login, setLogin] = useState(true);
-
     const [loginEmail, setLoginEmail] = useState("")
     const [loginPassword, setLoginPassword] = useState("")
 
@@ -94,12 +94,16 @@ const Welcome = () =>{
         fetchHandler('http://localhost:3005/profile/create', 'POST', data)
     }
 
-    const LoginHandler = (event) =>{
+    async function LoginHandler(event){
         event.preventDefault();
+        const profile = await fetchHandler('http://localhost:3005/profile/validate', 'POST', {email:loginEmail, password:loginPassword})
+        if(profile.login === true){
+            props.login(profile)
+        }else{
+            alert('False Login Info')
+        }
         setLoginEmail('');
         setLoginPassword('');
-
-        fetchHandler('http://localhost:3005/profile/read', 'GET', 'null')
     }
 
     async function fetchHandler(url, method ,body){
@@ -119,7 +123,7 @@ const Welcome = () =>{
         }
         const response = await fetch(url,jsonBody)
         let datas = await response.json()
-        console.log(datas)
+        return datas;
     }
 
     return(
