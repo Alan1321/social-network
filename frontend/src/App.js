@@ -8,7 +8,8 @@ function App() {
 
   //will be managed by redux later on
   const [isLoggedin, setLogin] = useState(false);
-  const loginHandler = () =>{
+  const loginHandler = (props) =>{
+    //console.log(props)
     setLogin(true);
   }
 

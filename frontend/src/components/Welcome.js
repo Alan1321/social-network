@@ -1,6 +1,10 @@
 import React, {useState, useEffect} from "react";
 import styled from 'styled-components'
 import Header from "../Utils/Header";
+import {SignUpValidator} from "../Utils/SignUpValidator"
+import {fetchHandler} from '../Utils/fetchHandler'
+import { useSelector, useDispatch } from "react-redux";
+import {loginAction} from "../store/index";
 
 const Outer_Container = styled.div`
 height:100vh;
@@ -71,6 +75,8 @@ margin-bottom:1rem;
 
 const Welcome = (props) =>{
 
+    const dispatch = useDispatch();
+
     const [login, setLogin] = useState(true);
     const [loginEmail, setLoginEmail] = useState("")
     const [loginPassword, setLoginPassword] = useState("")
@@ -89,20 +95,24 @@ const Welcome = (props) =>{
             lastName:lastName,
             email:signUpEmail,
             password:singUpPassword,
+            confirmPassword:singUpConfirmPassword,
         }
 
-        const res = await fetchHandler('http://localhost:3005/profile/create', 'POST', data)
+        const validator = SignUpValidator(data);            
+        
+        if(validator[0]){
+            const res = await fetchHandler('http://localhost:3005/profile/create', 'POST', data)
+            setFirstName("");
+            setLastName("");
+            setSignUpEmail("");
+            setSignUpPassword("");
+            setSignUpConfirmPassword("");
+            console.log(res.result)
+            alert(res.result[0])
+            return;
+        }
 
-        setFirstName("");
-        setLastName("");
-        setSignUpEmail("");
-        setSignUpPassword("");
-        setSignUpConfirmPassword("");
-
-        console.log(res)
-
-        if(res._id) alert("You have Successfully created an Account")
-        else alert("Error. Please provide all fields.")
+        alert(validator[1].msg)
     }
 
     async function LoginHandler(event){
@@ -110,31 +120,12 @@ const Welcome = (props) =>{
         const profile = await fetchHandler('http://localhost:3005/profile/validate', 'POST', {email:loginEmail, password:loginPassword})
         if(profile.login === true){
             props.login(profile)
+            dispatch(loginAction.login(profile))
         }else{
             alert('False Login Info')
         }
         setLoginEmail('');
         setLoginPassword('');
-    }
-
-    async function fetchHandler(url, method ,body){
-
-        let jsonBody = {
-            method:'GET'
-        }
-
-        if(method == 'POST'){
-            jsonBody={
-                method:'POST',
-                body:JSON.stringify(body),
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            }
-        }
-        const response = await fetch(url,jsonBody)
-        let datas = await response.json()
-        return datas;
     }
 
     return(

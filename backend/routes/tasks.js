@@ -33,9 +33,26 @@ router.route('/read').get(async (req, res)=>{
 })
 
 router.route('/create').post(async(req, res)=>{
-    try{        
+    try{   
+        var duplicate = false;
+        var result = []
+        const profiles = await conTask.getProfile();
+        profiles.forEach((element)=>{
+            if(element.email === req.body.email){
+                duplicate = true;
+            }
+        })
+
+        if(duplicate){
+            result[0] = 'Error Email Already Exists'
+            result[1] = false
+            return res.status(500).json({result})
+        } 
+        
         const data = await conTask.setProfile(req.body)
-        res.status(200).json(data)
+        result[0] = 'Account successfully created'
+        result[1] = data
+        res.status(200).json({result})
     }catch(error){
         res.status(500).json(error)
     }
@@ -46,6 +63,7 @@ router.route('/validate').post(async(req, res)=>{
         const data = await conTask.getProfile();
         var login = false;
         var profile = req.body
+        var other = []
 
         data.forEach((element)=>{
             if(element.email === req.body.email){
@@ -54,10 +72,12 @@ router.route('/validate').post(async(req, res)=>{
                     profile=element;
                 }
                 //return;
+            }else{
+                other.push(element)
             }
         })
 
-        res.status(200).json({login, profile})
+        res.status(200).json({login, profile,other})
     }catch(error){
         res.status(500).json(error)
     }
