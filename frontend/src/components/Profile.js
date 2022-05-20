@@ -8,17 +8,23 @@ const Outer_Container = styled.div`
 height:100vh;
 `
 const Inner_Container = styled.div`
-width:50vw;
-min-width:600px;
+width:100vw;
+display:flex;
 `
+
+const Left = styled.div`
+width:50%;
+min-width:700px;
+`
+
 const Background = styled.div`
 //background-color:cyan;
 background-image: url("https://images.pexels.com/photos/1631677/pexels-photo-1631677.jpeg?cs=srgb&dl=pexels-abdullah-ghatasheh-1631677.jpg&fm=jpg");
 background-repeat: no-repeat;
 background-size: cover;
 height:350px;
-min-width:600px;
-min-height:350px;
+// min-width:600px;
+// min-height:350px;
 `
 
 const Picture = styled.div`
@@ -34,8 +40,8 @@ border: 7px solid white;
 background-image: url("https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZmlsZSUyMHBob3RvfGVufDB8fDB8fA%3D%3D&w=1000&q=80");
 background-repeat: no-repeat;
 background-size: cover;
-min-width:150px;
-min-height:150px;
+// min-width:150px;
+// min-height:150px;
 `
 const Freediv =styled.div`
 height:70px;
@@ -128,6 +134,13 @@ padding-bottom:20px;
 // border-bottom-left-radius:70px;
 `
 
+const Right = styled.div`
+background-color:white;
+width:50%;
+border: 5px solid white;
+//overflow-y: scroll;
+`
+
 
 const Profile = () =>{
     const login = useSelector((state)=>state.login.login)
@@ -136,36 +149,41 @@ const Profile = () =>{
         <Outer_Container>
             <Header/>
             <Inner_Container>
-                <Background></Background>
-                <Picture></Picture>
-                <Freediv>
-                    <Friend>Add Friend</Friend>
-                </Freediv>
-                <Info>
-                    <Bio>                        
-                        <div>Alan Subedi</div>
-                        <div>Software Engineer</div>
-                        <div>alansubedi82@gmail.com</div>
-                    </Bio>
-                </Info>
-                <Stats>
-                    <StatLeft>                   
-                        <h2 style={{color:'green', marginBottom:'-15px'}}>100</h2>
-                        <h1>Friends</h1>
-                    </StatLeft>
-                    <StatMid>
-                        <h2 style={{color:'green', marginBottom:'-15px'}}>500</h2>
-                        <h1>Posts</h1>
-                    </StatMid>
-                    <StatRight>
-                        <h2 style={{color:'green', marginBottom:'-15px'}}>500</h2>
-                        <h1>Score</h1>
-                    </StatRight>
-                </Stats>
-                <FinalContainer>
-                    <Button><h1>Checkout Feed</h1></Button>
-                    <Button><h1>Add new Post</h1></Button>
-                </FinalContainer>
+                <Left>
+                    <Background></Background>
+                    <Picture></Picture>
+                    <Freediv>
+                        <Friend>Add Friend</Friend>
+                    </Freediv>
+                    <Info>
+                        <Bio>                        
+                            <div>Alan Subedi</div>
+                            <div>Software Engineer</div>
+                            <div>alansubedi82@gmail.com</div>
+                        </Bio>
+                    </Info>
+                    <Stats>
+                        <StatLeft>                   
+                            <h2 style={{color:'green', marginBottom:'-15px'}}>100</h2>
+                            <h1>Friends</h1>
+                        </StatLeft>
+                        <StatMid>
+                            <h2 style={{color:'green', marginBottom:'-15px'}}>500</h2>
+                            <h1>Posts</h1>
+                        </StatMid>
+                        <StatRight>
+                            <h2 style={{color:'green', marginBottom:'-15px'}}>500</h2>
+                            <h1>Score</h1>
+                        </StatRight>
+                    </Stats>
+                    <FinalContainer>
+                        <Button><h1>Checkout Feed</h1></Button>
+                        <Button><h1>Add new Post</h1></Button>
+                    </FinalContainer>
+                </Left>
+                <Right>
+                    This is right
+                </Right>
             </Inner_Container>
         </Outer_Container>
     )
