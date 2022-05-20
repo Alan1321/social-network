@@ -4,7 +4,7 @@ import styled from 'styled-components'
 const Outer_Container = styled.div`
 //background-color:grey;
 background-color:#303030;
-height:10%;
+height:120px;
 width:100%;
 display: flex;
 //text-align: center;
